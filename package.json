@@ -1,6 +1,6 @@
 {
   "name": "contentful-graphql-types",
-  "version": "1.0.2-dev",
+  "version": "1.0.2",
   "repository": "https://github.com/marcogrcr/contentful-graphql-types",
   "homepage": "https://github.com/marcogrcr/contentful-graphql-types",
   "description": "Provides a mechanism to transform contentful entry types to their graphql counterparts.",
