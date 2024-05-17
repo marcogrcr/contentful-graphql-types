@@ -20,12 +20,12 @@ import type { GqlEntryBasicOptions } from "./gql-entry-options";
 export type GqlFieldType<T, O extends GqlEntryBasicOptions, R> =
   | (Exclude<T, undefined> extends (infer I)[]
       ? I extends Asset
-        ? Partial<GqlCollection<GqlAsset>>
+        ? Partial<GqlCollection<Partial<GqlAsset>>>
         : I extends Entry
           ? Partial<GqlCollection<Partial<GqlEntry<I, O>>>>
           : T
       : T extends Asset
-        ? GqlAsset
+        ? Partial<GqlAsset>
         : T extends Entry
           ? Partial<GqlEntry<T, O>>
           : T extends Document

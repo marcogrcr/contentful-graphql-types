@@ -156,6 +156,7 @@ describe("GqlEntry", () => {
 
       // asset
       entry.asset = TEST_GQL_ASSET;
+      entry.asset.contentType = undefined;
 
       // optAsset
       entry.optAsset = TEST_GQL_ASSET;
