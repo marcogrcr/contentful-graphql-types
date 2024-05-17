@@ -55,8 +55,12 @@ function example1(entry: GqlMyContentType1) {
   entry.scalarArray = ["foo", "bar"];
 
   // references are converted recursively
+  // however all required fields are marked optional
+  // since there's no way to indicate which fields are included in the GraphQL query
   entry.reference.scalar = true;
+  entry.reference.scalar = undefined;
   entry.reference.optional = 1;
+  entry.reference.optional = undefined;
 
   // reference arrays are automatically renamed and typed as collections
   entry.referencesCollection.items![0].scalar = true;
@@ -157,20 +161,20 @@ type GqlMyContentType4 = GqlEntry<
   }
 >;
 
-function example4(entry: GqlMyContentType3) {
+function example4(entry: GqlMyContentType4) {
   // sys/__typename field names are mapped accordingly
   entry.sys.Id = "value";
   entry.sys.PublishedAt = "value";
   entry.type = "MycontentType";
 
   // field and nested sys/__typename fields are mapped accordingly
-  entry.Reference.sys.NestedId = "value";
+  entry.Reference.sys!.NestedId = "value";
   entry.Reference.nestedType = "MycontentType";
 
   // deeper nesting inherit last specified parent's mappings
   // limitation: fields cannot be inherited as the references may refer to other content types
-  entry.Reference.reference.sys.NestedId = "value";
-  entry.Reference.reference.nestedType = "MycontentType";
+  entry.Reference.reference!.sys!.NestedId = "value";
+  entry.Reference.reference!.nestedType = "MycontentType";
 }
 ```
 

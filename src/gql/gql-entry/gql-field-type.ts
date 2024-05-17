@@ -22,12 +22,12 @@ export type GqlFieldType<T, O extends GqlEntryBasicOptions, R> =
       ? I extends Asset
         ? Partial<GqlCollection<GqlAsset>>
         : I extends Entry
-          ? Partial<GqlCollection<GqlEntry<I, O>>>
+          ? Partial<GqlCollection<Partial<GqlEntry<I, O>>>>
           : T
       : T extends Asset
         ? GqlAsset
         : T extends Entry
-          ? GqlEntry<T, O>
+          ? Partial<GqlEntry<T, O>>
           : T extends Document
             ? GqlRichText<R>
             : T)

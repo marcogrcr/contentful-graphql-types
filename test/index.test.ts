@@ -118,6 +118,8 @@ describe("GqlEntry", () => {
 
       // entry
       entry.entry = entry;
+      entry.entry.scalar = "value";
+      entry.entry.scalar = undefined;
 
       // optEntry
       entry.optEntry = entry;
@@ -265,8 +267,8 @@ describe("GqlEntry", () => {
       entry.optScalar = undefined;
 
       // nested sys
-      entry.entry.sys.myId = "value";
-      entry.entry.sys.spaceId = "value";
+      entry.entry.sys!.myId = "value";
+      entry.entry.sys!.spaceId = "value";
 
       // nested __typename
       entry.entry.myType = "TestContentType";
@@ -315,16 +317,16 @@ describe("GqlEntry", () => {
       entry.myType = "TestContentType";
 
       // nested sys (first level)
-      entry.entry.sys.myId1 = "value";
+      entry.entry.sys!.myId1 = "value";
 
       // nested __typename (first level)
       entry.entry.myType1 = "TestContentType";
 
       // nested sys (second level)
-      entry.entry.entry.sys.myId2 = "value";
+      entry.entry.entry!.sys!.myId2 = "value";
 
       // nested __typename (second level)
-      entry.entry.entry.myType2 = "TestContentType";
+      entry.entry.entry!.myType2 = "TestContentType";
     });
   });
 
