@@ -1,9 +1,10 @@
 {
   "name": "contentful-graphql-types",
   "version": "1.0.0-dev",
-  "private": true,
+  "repository": "https://github.com/marcogrcr/contentful-graphql-types",
+  "homepage": "https://github.com/marcogrcr/contentful-graphql-types",
   "description": "Provides a mechanism to transform contentful entry types to their graphql counterparts.",
-  "author": "",
+  "author": "Marco Gonzalez <marcogrcr@gmail.com>",
   "license": "MIT",
   "types": "dist/index.d.ts",
   "files": [
@@ -44,5 +45,10 @@
     "prettier": "^3.2.5",
     "typescript": "^5.4.5",
     "vitest": "^1.6.0"
-  }
+  },
+  "keywords": [
+    "contentful",
+    "graphql",
+    "typescript"
+  ]
 }
