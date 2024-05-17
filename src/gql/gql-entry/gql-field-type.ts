@@ -1,8 +1,9 @@
 import type { Document } from "@contentful/rich-text-types";
 
-import type { Entry } from "../../contentful";
+import type { Asset, Entry } from "../../contentful";
 import type { IfOptional } from "../../util";
-import type { GqlCollection } from "..";
+import type { GqlAsset } from "../gql-asset";
+import type { GqlCollection } from "../gql-collection";
 import type { GqlRichText } from "../gql-rich-text";
 import type { GqlEntry } from "./gql-entry";
 import type { GqlEntryBasicOptions } from "./gql-entry-options";
@@ -18,12 +19,16 @@ import type { GqlEntryBasicOptions } from "./gql-entry-options";
  */
 export type GqlFieldType<T, O extends GqlEntryBasicOptions, R> =
   | (Exclude<T, undefined> extends (infer I)[]
-      ? I extends Entry
-        ? Partial<GqlCollection<GqlEntry<I, O>>>
-        : T
-      : T extends Entry
-        ? GqlEntry<T, O>
-        : T extends Document
-          ? GqlRichText<R>
-          : T)
+      ? I extends Asset
+        ? Partial<GqlCollection<GqlAsset>>
+        : I extends Entry
+          ? Partial<GqlCollection<GqlEntry<I, O>>>
+          : T
+      : T extends Asset
+        ? GqlAsset
+        : T extends Entry
+          ? GqlEntry<T, O>
+          : T extends Document
+            ? GqlRichText<R>
+            : T)
   | IfOptional<T, null, never>;

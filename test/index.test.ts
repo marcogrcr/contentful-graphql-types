@@ -1,10 +1,10 @@
 import type { Document } from "@contentful/rich-text-types";
 import { describe, it } from "vitest";
 
-import type { GqlAsset, GqlEntry } from "../src";
+import type { Asset, GqlAsset, GqlEntry } from "../src";
 
 const TEST_DOCUMENT = {} as unknown as Document;
-const TEST_ASSET: GqlAsset = {
+const TEST_GQL_ASSET: GqlAsset = {
   sys: {
     id: "value",
     spaceId: "value",
@@ -52,6 +52,12 @@ interface TestContentType {
     entryArray: TestContentType[];
     optEntryArray?: TestContentType[];
 
+    asset: Asset;
+    optAsset?: Asset;
+
+    assetArray: Asset[];
+    optAssetArray?: Asset[];
+
     richText: Document;
     optRichText?: Document;
   };
@@ -93,6 +99,8 @@ describe("GqlEntry", () => {
         entry: void 0 as never,
         scalarArray: ["1", "2"],
         entryArrayCollection: { items: [] },
+        asset: TEST_GQL_ASSET,
+        assetArrayCollection: { items: [TEST_GQL_ASSET] },
         richText: { json: TEST_DOCUMENT },
       };
 
@@ -144,6 +152,22 @@ describe("GqlEntry", () => {
       entry.optEntryArrayCollection = null;
       entry.optEntryArrayCollection = undefined;
 
+      // asset
+      entry.asset = TEST_GQL_ASSET;
+
+      // optAsset
+      entry.optAsset = TEST_GQL_ASSET;
+      entry.optAsset = null;
+      entry.optAsset = undefined;
+
+      // assetArray
+      entry.assetArrayCollection = { items: [TEST_GQL_ASSET] };
+
+      // optAssetArray
+      entry.optAssetArrayCollection = { items: [TEST_GQL_ASSET] };
+      entry.optAssetArrayCollection = null;
+      entry.optAssetArrayCollection = undefined;
+
       // richText
       entry.richText = {
         json: TEST_DOCUMENT,
@@ -157,8 +181,8 @@ describe("GqlEntry", () => {
             block: [entry],
           },
           assets: {
-            block: [TEST_ASSET],
-            hyperlink: [TEST_ASSET],
+            block: [TEST_GQL_ASSET],
+            hyperlink: [TEST_GQL_ASSET],
           },
         },
       };
@@ -336,6 +360,8 @@ describe("GqlEntry", () => {
         entry: {} as unknown as GqlEntry<TestContentType>,
         scalarArray: ["1", "2"],
         entryArrayCollection: { items: [] },
+        asset: TEST_GQL_ASSET,
+        assetArrayCollection: { items: [TEST_GQL_ASSET] },
         richText: { json: TEST_DOCUMENT },
       };
 

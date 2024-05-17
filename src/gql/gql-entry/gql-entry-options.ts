@@ -1,5 +1,5 @@
 import type { Entry, FieldsOf } from "../../contentful";
-import type { GqlSys } from "..";
+import type { GqlSys } from "../gql-sys";
 import type { GqlFieldMap } from "./gql-field-map";
 
 /** Specifies the basic {@link GqlEntry} options that are not dependent on the {@link Entry} type. */

@@ -1,3 +1,4 @@
+export type * from "./asset";
 export type * from "./content-type-of";
 export type * from "./entry";
 export type * from "./fields-of";
