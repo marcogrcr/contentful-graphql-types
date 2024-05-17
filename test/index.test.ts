@@ -246,7 +246,7 @@ describe("GqlEntry", () => {
         },
         myType: "TestContentType",
         myScalar: "value",
-        entry: void 0 as never,
+        entry: { sys: {} } as never,
       };
 
       // sys
@@ -305,7 +305,7 @@ describe("GqlEntry", () => {
           myId: "value",
         },
         myType: "TestContentType",
-        entry: void 0 as never,
+        entry: { sys: {}, entry: { sys: {} } } as never,
       };
 
       // sys
