@@ -1,7 +1,15 @@
 import type { Document } from "@contentful/rich-text-types";
 import { describe, it } from "vitest";
 
-import type { Asset, GqlAsset, GqlEntry } from "../src";
+import type {
+  Asset,
+  Entry,
+  GqlAsset,
+  GqlCollection,
+  GqlEntry,
+  GqlRichText,
+  GqlSys,
+} from "../src";
 
 const TEST_DOCUMENT = {} as unknown as Document;
 const TEST_GQL_ASSET: GqlAsset = {
@@ -105,93 +113,77 @@ describe("GqlEntry", () => {
       };
 
       // contentfulMetadata
-      entry.contentfulMetadata?.tags[0].id;
-      entry.contentfulMetadata?.tags[0].name;
+      entry.contentfulMetadata = {
+        tags: [
+          {
+            id: "value",
+            name: "value",
+          },
+        ],
+      };
+      const _1: string = entry.contentfulMetadata.tags[0].id;
+      const _2: string = entry.contentfulMetadata.tags[0].name;
+      entry.contentfulMetadata = undefined;
 
       // scalar
-      entry.scalar = "value";
+      const _3: string = entry.scalar;
 
       // optScalar
-      entry.optScalar = 123;
+      const _4: number | null | undefined = entry.optScalar;
       entry.optScalar = null;
       entry.optScalar = undefined;
 
       // entry
-      entry.entry = entry;
-      entry.entry.scalar = "value";
-      entry.entry.scalar = undefined;
+      const _5: Partial<GqlTestContentType> = entry.entry;
 
       // optEntry
-      entry.optEntry = entry;
+      const _6: Partial<GqlTestContentType> | null | undefined = entry.optEntry;
       entry.optEntry = null;
       entry.optEntry = undefined;
 
       // scalarArray
-      entry.scalarArray = ["value", true];
+      const _7: (string | boolean)[] = entry.scalarArray;
 
       // optScalarArray
-      entry.optScalarArray = [123, true];
+      const _8: (number | boolean)[] | null | undefined = entry.optScalarArray;
       entry.optScalarArray = null;
       entry.optScalarArray = undefined;
 
       // entryArray
-      entry.entryArrayCollection = { items: [entry] };
-      entry.entryArrayCollection = {
-        skip: 123,
-        limit: 123,
-        total: 123,
-        items: [entry],
-      };
+      const _9: Partial<GqlCollection<Partial<GqlTestContentType>>> =
+        entry.entryArrayCollection;
 
       // optEntryArray
-      entry.optEntryArrayCollection = { items: [entry] };
-      entry.optEntryArrayCollection = {
-        skip: 123,
-        limit: 123,
-        total: 123,
-        items: [entry],
-      };
+      const _10:
+        | Partial<GqlCollection<Partial<GqlTestContentType>>>
+        | null
+        | undefined = entry.optEntryArrayCollection;
       entry.optEntryArrayCollection = null;
       entry.optEntryArrayCollection = undefined;
 
       // asset
-      entry.asset = TEST_GQL_ASSET;
-      entry.asset.contentType = undefined;
+      const _11: Partial<GqlAsset> = entry.asset;
 
       // optAsset
-      entry.optAsset = TEST_GQL_ASSET;
+      const _12: Partial<GqlAsset> | null | undefined = entry.optAsset;
       entry.optAsset = null;
       entry.optAsset = undefined;
 
       // assetArray
-      entry.assetArrayCollection = { items: [TEST_GQL_ASSET] };
+      const _13: Partial<GqlCollection<Partial<GqlAsset>>> =
+        entry.assetArrayCollection;
 
       // optAssetArray
-      entry.optAssetArrayCollection = { items: [TEST_GQL_ASSET] };
+      const _14: Partial<GqlCollection<Partial<GqlAsset>>> | null | undefined =
+        entry.optAssetArrayCollection;
       entry.optAssetArrayCollection = null;
       entry.optAssetArrayCollection = undefined;
 
       // richText
-      entry.richText = {
-        json: TEST_DOCUMENT,
-      };
-      entry.richText = {
-        json: TEST_DOCUMENT,
-        links: {
-          entries: {
-            inline: [entry],
-            hyperlink: [entry],
-            block: [entry],
-          },
-          assets: {
-            block: [TEST_GQL_ASSET],
-            hyperlink: [TEST_GQL_ASSET],
-          },
-        },
-      };
+      const _15: GqlRichText<Entry> = entry.richText;
 
       // optRichText
-      entry.optRichText = entry.richText;
+      const _16: GqlRichText<Entry> | null | undefined = entry.optRichText;
       entry.optRichText = null;
       entry.optRichText = undefined;
     });
@@ -220,7 +212,11 @@ describe("GqlEntry", () => {
         __typename: "TestContentType",
       };
 
-      entry;
+      // sys
+      const _1: GqlSys = entry.sys;
+
+      // __typename
+      const _2: "TestContentType" = entry.__typename;
     });
   });
 
@@ -249,30 +245,28 @@ describe("GqlEntry", () => {
         },
         myType: "TestContentType",
         myScalar: "value",
-        entry: { sys: {} } as never,
+        entry: { sys: {}, entry: { sys: {} } } as never,
       };
 
       // sys
-      entry.sys.myId = "value";
-      entry.sys.spaceId = "value";
+      const _1: string = entry.sys.myId;
+      const _2: string = entry.sys.spaceId;
+      const _3: string = entry.entry.sys!.myId;
+      const _4: string = entry.entry.sys!.spaceId;
+      entry.entry.sys = undefined;
 
       // __typename
-      entry.myType = "TestContentType";
+      const _5: "TestContentType" = entry.myType;
 
       // scalar
-      entry.myScalar = "value";
+      const _6: string = entry.myScalar;
+      const _7: "TestContentType" | undefined = entry.entry.myType;
+      entry.entry.myType = undefined;
 
       // optScalar
-      entry.optScalar = 1;
+      const _8: number | null | undefined = entry.optScalar;
       entry.optScalar = null;
       entry.optScalar = undefined;
-
-      // nested sys
-      entry.entry.sys!.myId = "value";
-      entry.entry.sys!.spaceId = "value";
-
-      // nested __typename
-      entry.entry.myType = "TestContentType";
     });
   });
 
@@ -312,22 +306,19 @@ describe("GqlEntry", () => {
       };
 
       // sys
-      entry.sys.myId = "value";
+      const _1: string = entry.sys.myId;
+      const _2: string = entry.entry.sys!.myId1;
+      const _3: string = entry.entry.entry!.sys!.myId2;
+      entry.entry.entry!.sys = undefined;
+      entry.entry.sys = undefined;
 
       // __typename
-      entry.myType = "TestContentType";
-
-      // nested sys (first level)
-      entry.entry.sys!.myId1 = "value";
-
-      // nested __typename (first level)
-      entry.entry.myType1 = "TestContentType";
-
-      // nested sys (second level)
-      entry.entry.entry!.sys!.myId2 = "value";
-
-      // nested __typename (second level)
-      entry.entry.entry!.myType2 = "TestContentType";
+      const _4: "TestContentType" = entry.myType;
+      const _5: "TestContentType" | undefined = entry.entry.myType1;
+      const _6: "TestContentType" | undefined = entry.entry.entry!.myType2;
+      entry.entry.entry!.myType2 = undefined;
+      entry.entry.entry = undefined;
+      entry.entry.myType1 = undefined;
     });
   });
 
@@ -371,13 +362,13 @@ describe("GqlEntry", () => {
       const linkedEntry = entry.richText?.links?.entries?.block?.[0];
       if (linkedEntry?.type === "RichTextContentType1") {
         // field1
-        linkedEntry.field1 = "value";
+        const _1: string = linkedEntry.field1;
       } else if (linkedEntry?.type === "RichTextContentType2") {
         // sys
-        linkedEntry.sys.other = "value";
+        const _1: string = linkedEntry.sys.other;
 
         // field2
-        linkedEntry.myOptField2 = "value";
+        const _2: string | null | undefined = linkedEntry.myOptField2;
         linkedEntry.myOptField2 = null;
         linkedEntry.myOptField2 = undefined;
       }
